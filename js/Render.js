@@ -13,6 +13,9 @@ export default class Render
         this.animLoop = new AnimLoop();
 
         let texture = new THREE.TextureLoader().load('res/box.gif');
+        texture.minFilter = THREE.NearestFilter;
+        texture.magFilter = THREE.NearestFilter;
+
         let box1 = new Box(0, 0, texture);
         let box2 = new Box(2, 0, texture);
 

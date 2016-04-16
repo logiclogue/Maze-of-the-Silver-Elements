@@ -2,10 +2,11 @@ import * as THREE from 'three'
 
 export default class Box extends THREE.Mesh
 {
-    constructor(x, y) {
+    constructor(x, y, texture) {
         let geometry = new THREE.BoxGeometry(200, 200, 200);
         let material = new THREE.MeshBasicMaterial({
-            vertexColors: THREE.FaceColors
+            vertexColors: THREE.FaceColors,
+            map: texture
         });
 
         super(geometry, material);
