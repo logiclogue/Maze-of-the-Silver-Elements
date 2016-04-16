@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Camera from './Camera'
 import Box from './Box'
+import Floor from './Floor'
 import Renderer from './Renderer'
 import AnimLoop from './AnimLoop'
 
@@ -21,6 +22,7 @@ export default class Render
 
         this.scene.add(box1);
         this.scene.add(box2);
+        this.scene.add(new Floor(1, 1));
 
         window.addEventListener('resize', this._onWindowResize.bind(this), false);
 

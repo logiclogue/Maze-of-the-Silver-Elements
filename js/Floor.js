@@ -1,18 +1,20 @@
 import * as THREE from 'three'
 
-export default class Box extends THREE.Mesh
+export default class Floor extends THREE.Mesh
 {
-    constructor(x, z, texture) {
-        let geometry = new THREE.BoxGeometry(200, 200, 200);
+    constructor(x, z) {
+        let geometry = new THREE.PlaneGeometry(200, 200);
         let material = new THREE.MeshBasicMaterial({
-            vertexColors: THREE.FaceColors,
-            map: texture
+            color: 0xff00ff,
+            side: THREE.DoubleSide
         });
 
         super(geometry, material);
 
         this.posX = x;
         this.posZ = z;
+        this.position.y = -100;
+        this.rotation.x = Math.PI / 2;
     }
 
 
