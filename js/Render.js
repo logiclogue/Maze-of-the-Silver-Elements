@@ -11,6 +11,8 @@ export default class Render extends THREE.Scene
     constructor() {
         super();
 
+        this.fog = new THREE.FogExp2(0x000000, 0.0025);
+
         this.renderer = new Renderer();
         this.animLoop = new AnimLoop();
         this.controls = new Controls();
