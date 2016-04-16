@@ -56,7 +56,7 @@ export default class CollisionGroup
 					}
 
 					// general
-					if (mod.collisionFuncs[colGroupIndex].general !== undefined) {
+					if (this.collisionFuncs[colGroupIndex].general !== undefined) {
 						collisionFuncs.general(boxB);
 					}
 

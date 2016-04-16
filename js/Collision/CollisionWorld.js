@@ -12,7 +12,9 @@ export default class CollisionWorld
     test() {
         this.groups.forEach((groupA) => {
             this.groups.forEach((groupB) => {
-                groupA.testCollsion(groupB);
+                if (groupA !== groupB) {
+                    groupA.testCollision(groupB);
+                }
             });
         });
     }

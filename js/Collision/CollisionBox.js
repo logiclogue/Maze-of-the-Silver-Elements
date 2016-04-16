@@ -1,6 +1,6 @@
 export default class CollisionBox
 {
-    constructor(x, y, w, h, group) {
+    constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
         this.pX = x;
