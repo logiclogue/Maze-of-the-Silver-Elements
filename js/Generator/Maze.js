@@ -2,6 +2,7 @@ import Generator from './Generator'
 import Box from '../Box'
 import Floor from '../Floor'
 import Graph from '../Graph/Graph.js'
+import DepthFirstSearch from './DepthFirstSearch'
 
 export default class Maze extends Generator
 {
@@ -10,6 +11,10 @@ export default class Maze extends Generator
 
         this.scene = scene;
         this.graph = new Graph();
+
+        this.generateGraph();
+
+        this.search = new DepthFirstSearch(this.graph);
     }
 
 
@@ -18,23 +23,19 @@ export default class Maze extends Generator
             for (let y = 0; y < this.size; y += 1) {
                 let node = this.graph.addNode(x + ',' + y);
 
-                for (let x1 = x - 1; x1 < x + 2; x1 += 1) {
-                    for (let y1 = y - 1; y1 < y + 2; y1 += 1) {
-                        try {
-                            let isNotCentre = x1 !== x || y1 !== y;
-                            let isInWorld = x1 >= 0 && y1 >= 0 && x1 < this.size && y1 < this.size;
+                for (let i = -2; i < 2; i += 1) {
+                    let x1 = x + (i % 2);
+                    let y1 = y + (i + 1 === 2 ? 0 : i + 1);
+                    let isInWorld = x1 >= 0 && y1 >= 0 && x1 < this.size && y1 < this.size;
 
-                            if (isNotCentre && isInWorld) {
-                            	//node.(new Edge(x1 + ',' + y1, distance));
-                            }
-                        }
-                        catch (e) {
-
-                        }
+                    if (isInWorld) {
+                        node.addEdge(x + ',' + y, x1 + ',' + y1, 1);
                     }
                 }
             }
         }
+
+        this.graph.addStartNode('0,0');
     }
 
     draw(texture, floorTexture, boxGroup) {

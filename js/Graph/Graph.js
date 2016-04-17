@@ -13,7 +13,7 @@ export default class Graph
 	addNode(name, edges) {
 		let node = new Node(name);
 
-		node.edges = edges;
+		node.edges = edges || [];
 		this.nodes[name] = node;
 
 		return node;

@@ -1,3 +1,5 @@
+import Edge from './Edge'
+
 export default class Node
 {
     constructor(name) {
