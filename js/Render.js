@@ -26,20 +26,7 @@ export default class Render extends THREE.Scene
         texture.magFilter = THREE.NearestFilter;
 
         let boxGroup = new CollisionGroup();
-        this.player.collisionGroup.addCollision(boxGroup, {
-            left: () => {
-                this.player.posX = this.player.pX;
-            },
-            right: () => {
-                this.player.posX = this.player.pX;
-            },
-            top: () => {
-                this.player.posZ = this.player.pZ;
-            },
-            bottom: () => {
-                this.player.posZ = this.player.pZ;
-            }
-        });
+        this.player.addBoxCollision(boxGroup);
         this.collisionWorld.addGroup(boxGroup);
         this.collisionWorld.addGroup(this.player.collisionGroup);
 

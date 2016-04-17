@@ -61,4 +61,21 @@ export default class Player extends THREE.PerspectiveCamera
         this.aspect = window.innerWidth / window.innerHeight;
         this.updateProjectionMatrix();
     }
+
+    addBoxCollision(boxGroup) {
+        this.collisionGroup.addCollision(boxGroup, {
+            left: () => {
+                this.posX = this.pX;
+            },
+            right: () => {
+                this.posX = this.pX;
+            },
+            top: () => {
+                this.posZ = this.pZ;
+            },
+            bottom: () => {
+                this.posZ = this.pZ;
+            }
+        });
+    }
 }
