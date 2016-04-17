@@ -39,7 +39,8 @@ gulp.task('css', function () {
 
 // Watches all
 gulp.task('watch', function () {
-    gulp.watch([paths.javascript, paths.css], ['javascript', 'css']);
+    gulp.watch(paths.javascript, ['javascript']);
+    gulp.watch(paths.css, ['css']);
 });
 
 

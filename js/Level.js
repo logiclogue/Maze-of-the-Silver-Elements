@@ -4,6 +4,7 @@ import Box from './Box'
 import Floor from './Floor'
 import CollisionWorld from './Collision/CollisionWorld'
 import CollisionGroup from './Collision/CollisionGroup'
+import Maze from './Generator/Maze'
 
 export default class Level
 {
@@ -11,6 +12,7 @@ export default class Level
         this.scene = new Scene();
         this.player = new Player(controls);
         this.collisionWorld = new CollisionWorld();
+        this.maze = new Maze(10, this.scene);
 
         this.createWorld();
     }
@@ -28,18 +30,7 @@ export default class Level
         this.collisionWorld.addGroup(boxGroup);
         this.collisionWorld.addGroup(this.player.collisionGroup);
 
-        let box1 = new Box(0, 0, texture, boxGroup);
-        let box2 = new Box(2, 0, texture, boxGroup);
-
-        this.scene.add(box1);
-        this.scene.add(box2);
-        this.scene.add(new Box(5, 5, texture, boxGroup));
-
-        for (let x = 0; x < 10; x += 1) {
-            for (let y = 0; y < 10; y += 1) {
-                this.scene.add(new Floor(x, y, floorTexture));
-            }
-        }
+        this.maze.draw(texture, floorTexture, boxGroup);
     }
 
     update() {
