@@ -21,9 +21,11 @@ export default class Render extends THREE.Scene
         this.player = new Player(this.controls);
         this.collisionWorld = new CollisionWorld();
 
-        let texture = new THREE.TextureLoader().load('res/box.gif');
-        texture.minFilter = THREE.NearestFilter;
-        texture.magFilter = THREE.NearestFilter;
+        let textureLoader = new THREE.TextureLoader();
+        let texture = textureLoader.load('res/box.gif');
+        let floorTexture = textureLoader.load('res/floor.gif')
+        texture.minFilter = floorTexture.minFilter = THREE.NearestFilter;
+        texture.magFilter = floorTexture.magFilter = THREE.NearestFilter;
 
         let boxGroup = new CollisionGroup();
         this.player.addBoxCollision(boxGroup);
@@ -36,8 +38,12 @@ export default class Render extends THREE.Scene
         this.add(box1);
         this.add(box2);
         this.add(new Box(5, 5, texture, boxGroup));
-        this.add(new Floor(4, 4));
-        this.add(new Floor(1, 1));
+
+        for (let x = 0; x < 10; x += 1) {
+            for (let y = 0; y < 10; y += 1) {
+                this.add(new Floor(x, y, floorTexture));
+            }
+        }
 
         window.addEventListener('resize', this._onWindowResize.bind(this), false);
 

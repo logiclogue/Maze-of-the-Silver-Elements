@@ -2,10 +2,10 @@ import * as THREE from 'three'
 
 export default class Floor extends THREE.Mesh
 {
-    constructor(x, z) {
+    constructor(x, z, texture) {
         let geometry = new THREE.PlaneGeometry(200, 200);
         let material = new THREE.MeshBasicMaterial({
-            color: 0xff00ff,
+            texture: texture,
             side: THREE.DoubleSide
         });
 
