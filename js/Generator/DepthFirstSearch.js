@@ -8,18 +8,12 @@ export default class FirstDepthSearch
         this.stack.push(this.graph.startNodes[0]);
         this.nodesVisited.push(this.graph.startNodes[0]);
 
-        console.log(this.stack[0].edges);
-
         this._run();
-
-        console.log(this.graph);
     }
 
 
     _run() {
         do {
-            console.log(this.nodesVisited.length);
-
             if (!this._findNextNode(this.stack[this.stack.length - 1])) {
                 this.stack[this.stack.length - 1].edges.forEach((edge, index) => {
                     if (edge.endNode === this.stack[this.stack.length - 2].theName) {
@@ -54,10 +48,7 @@ export default class FirstDepthSearch
         }
         while (this.nodesVisited.indexOf(nodeToTest) !== -1);
 
-        console.log('INDEX:', edgeToVisit);
-
         node.edges.splice(node.edges.indexOf(edgeToVisit), 1);
-
         this.stack.push(nodeToTest);
         this.nodesVisited.push(nodeToTest);
 

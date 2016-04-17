@@ -15,6 +15,7 @@ export default class Player extends THREE.PerspectiveCamera
         this.pX;
         this.pZ;
         this.posX = 200;
+        this.posY = -200;
         this.posZ = 600;
     }
 
