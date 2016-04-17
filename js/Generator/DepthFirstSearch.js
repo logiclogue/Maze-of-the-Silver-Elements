@@ -1,18 +1,68 @@
 export default class FirstDepthSearch
 {
-    constructor(graph) {
-        this.graph = graph;
+    constructor(grid) {
+        this.grid = grid;
         this.stack = [];
         this.nodesVisited = [];
 
-        this.stack.push(this.graph.startNodes[0]);
-        this.nodesVisited.push(this.graph.startNodes[0]);
+        this.stack.push([1, 1]);
+        this.nodesVisited.push([1, 1]);
 
         this._run();
     }
 
 
     _run() {
+        do {
+            if (!this._findNextNode(this.stack[this.stack.length - 1])) {
+                this.stack.splice(this.stack.length - 1, 1);
+            }
+        }
+        while (this.stack.length !== 1);
+    }
+
+    _findNextNode(coords) {
+        let nodeCurrect = this.grid[coords[0]][this.grid[coords[1]]];
+        let nodeToVisit;
+        let edgeToVisit;
+        let hasVisitedAll = true;
+
+        this._forEdgesAround(coords[0], coords[1], (x, y) => {
+            if (this.nodesVisited.indexOf(coords) === -1) {
+                hasVisitedAll = false;
+            }
+        });
+
+        if (hasVisitedAll) {
+            return false;
+        }
+
+        /*do {
+
+        }
+        while ();*/
+    }
+
+    _forNodesAround(x, y, callback) {
+        for (let i = -2; i < 2; i += 1) {
+            let x1 = x + ((i % 2) * 2);
+            let y1 = y + ((i + 1 === 2 ? 0 : i + 1) * 2);
+
+            callback(x1, y1);
+        }
+    }
+
+    _forEdgesAround(x, y, callback) {
+        for (let i = -2; i < 2; i += 1) {
+            let x1 = x + (i % 2);
+            let y1 = y + (i + 1 === 2 ? 0 : i + 1);
+
+            callback(x1, y1);
+        }
+    }
+
+
+    /*_run() {
         do {
             if (!this._findNextNode(this.stack[this.stack.length - 1])) {
                 this.stack[this.stack.length - 1].edges.forEach((edge, index) => {
@@ -53,5 +103,5 @@ export default class FirstDepthSearch
         this.nodesVisited.push(nodeToTest);
 
         return true;
-    }
+    }*/
 }

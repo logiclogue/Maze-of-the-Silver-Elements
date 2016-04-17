@@ -1,7 +1,6 @@
 import Generator from './Generator'
 import Box from '../Box'
 import Floor from '../Floor'
-import Graph from '../Graph/Graph.js'
 import DepthFirstSearch from './DepthFirstSearch'
 
 export default class Maze extends Generator
@@ -10,7 +9,7 @@ export default class Maze extends Generator
         super(10);
 
         this.scene = scene;
-        this.graph = new Graph();
+        this.grid = [];
 
         this.generateGraph();
 
@@ -38,36 +37,19 @@ export default class Maze extends Generator
 
     draw(texture, floorTexture, boxGroup) {
         for (let x = 0; x < this.size; x += 1) {
+            this.grid[x] = [];
+
             for (let y = 0; y < this.size; y += 1) {
+                this.grid[x][y] = false;
                 let node = this.graph.nodes[x + ',' + y];
 
                 this.scene.add(new Floor(x, y, floorTexture));
 
-                if (!(x % 2) && !(y % 2)) {
-                    this.scene.add(new Box(x, y, texture, boxGroup));
+                if ((x % 2) && (y % 2)) {
+                    this.grid[x][y] = new Box(x, y, texture, boxGroup);
                 }
             }
         }
-
-        for (let nodeIndex in this.graph.nodes) {
-            let node = this.graph.nodes[nodeIndex];
-            let nodeCoords = nodeIndex.split(',');
-            nodeCoords[0] *= 2;
-            nodeCoords[1] *= 2;
-
-            console.log(node.edges);
-
-            node.edges.forEach((edge) => {
-                let edgeCoords = edge.endNode.split(',');
-                edgeCoords[0] *= 2;
-                edgeCoords[1] *= 2;
-
-            });
-            
-            this._forAllAround(nodeCoords[0], nodeCoords[1], (x1, y1) => {
-                this.scene.add(new Box(x1, y1, texture, boxGroup));
-            });
-        };
     }
 
 
