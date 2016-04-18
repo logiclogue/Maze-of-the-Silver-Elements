@@ -3,9 +3,10 @@ import CollisionBox from './Collision/CollisionBox'
 
 export default class Wall
 {
-    constructor(x, z, collisionGroup, texture) {
-        this.box = new Box(x, z, 0, texture);
+    constructor(x, z, collisionGroup) {
+        this.meshes = [];
         this.collisionBox = new CollisionBox(0, 0, 200, 200);
+        this.height = 3;
 
         collisionGroup.addBox(this.collisionBox);
 
@@ -13,10 +14,25 @@ export default class Wall
         this.posZ = z;
         this.collisionBox.x = this.posX * 200;
         this.collisionBox.y = this.posZ * 200;
+
+        this._addBoxes();
     }
 
 
     addToScene(scene) {
-        scene.add(this.box);
+        this.meshes.forEach((mesh) => {
+            scene.add(mesh);
+        })
+    }
+
+
+    _addBoxes() {
+        for (var i = 0; i < this.height; i += 1) {
+            this.meshes.push(new Box(this.posX, this.posZ, i));
+
+            if (Math.random() > 0.5) {
+                break;
+            }
+        }
     }
 }

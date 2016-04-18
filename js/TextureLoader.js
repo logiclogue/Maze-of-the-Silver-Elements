@@ -1,18 +1,23 @@
 import * as THREE from 'three'
 import Box from './Box'
+import Floor from './Floor'
 
 export default class TextureLoader extends THREE.TextureLoader
 {
     constructor() {
         super();
 
-        this.load(Box.texturePath, [Box.texture]);
+        Box.texture = this.load(Box.texturePath);
+        Floor.texture = this.load(Floor.texturePath);
     }
 
 
-    load(path, destination) {
-        texture.minFilter = 0;
-        texture.magFilter = 0;
-        destination[0] = super.load(path);
+    load(path) {
+        let texture = super.load(path);
+
+        texture.minFilter = THREE.NearestFilter;
+        texture.magFilter = THREE.NearestFilter;
+
+        return texture;
     }
 }

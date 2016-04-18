@@ -19,19 +19,14 @@ export default class Level
 
 
     createWorld() {
-        let textureLoader = new THREE.TextureLoader();
-        let txtLoader = new TextureLoader();
-        let floorTexture = textureLoader.load('res/floor.gif')
-        let texture;
-        floorTexture.minFilter = THREE.NearestFilter;
-        floorTexture.magFilter = THREE.NearestFilter;
-
+        let textureLoader = new TextureLoader();
         let boxGroup = new CollisionGroup();
+        
         this.player.addBoxCollision(boxGroup);
         this.collisionWorld.addGroup(boxGroup);
         this.collisionWorld.addGroup(this.player.collisionGroup);
 
-        this.maze.draw(texture, floorTexture, boxGroup);
+        this.maze.draw(boxGroup);
     }
 
     update() {

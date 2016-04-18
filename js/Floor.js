@@ -2,10 +2,13 @@ import * as THREE from 'three'
 
 export default class Floor extends THREE.Mesh
 {
-    constructor(x, z, texture) {
+    static texturePath = 'res/floor.gif';
+    static texture;
+
+    constructor(x, z) {
         let geometry = new THREE.PlaneGeometry(200, 200);
         let material = new THREE.MeshBasicMaterial({
-            map: texture
+            map: Floor.texture
         });
 
         super(geometry, material);

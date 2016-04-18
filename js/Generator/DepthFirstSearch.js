@@ -1,4 +1,4 @@
-export default class FirstDepthSearch
+export default class DepthFirstSearch
 {
     constructor(grid) {
         this.grid = grid;
