@@ -13,7 +13,7 @@ export default class Maze extends Generator
         this.grid = [];
 
         this.generateGrid();
-        
+
         this.search = new DepthFirstSearch(this.grid);
     }
 
@@ -33,6 +33,12 @@ export default class Maze extends Generator
             for (let y = 0, maxY = this.grid[x].length; y < maxY; y += 1) {
                 if (this.grid[x][y]) {
                     let wall = new Wall(x, y, boxGroup);
+
+                    // Full height walls at edges
+                    if (this._isAnEdge(x, y)) {
+                        wall.isRandomHeight = false;
+                    }
+
                     wall.addToScene(this.scene);
                 }
                 else {
@@ -52,5 +58,16 @@ export default class Maze extends Generator
 
             callback(x1, y1);
         }
+    }
+
+    _isAnEdge(x, y) {
+        if (x === 0 || y === 0) {
+            return true;
+        }
+        if (x === this.grid.length - 1 || y === this.grid.length - 1) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -7,6 +7,7 @@ export default class Wall
         this.meshes = [];
         this.collisionBox = new CollisionBox(0, 0, 200, 200);
         this.height = 3;
+        this.isRandomHeight = true;
 
         collisionGroup.addBox(this.collisionBox);
 
@@ -14,12 +15,12 @@ export default class Wall
         this.posZ = z;
         this.collisionBox.x = this.posX * 200;
         this.collisionBox.y = this.posZ * 200;
-
-        this._addBoxes();
     }
 
 
     addToScene(scene) {
+        this._addBoxes();
+
         this.meshes.forEach((mesh) => {
             scene.add(mesh);
         })
@@ -30,7 +31,7 @@ export default class Wall
         for (var i = 0; i < this.height; i += 1) {
             this.meshes.push(new Box(this.posX, this.posZ, i));
 
-            if (Math.random() > 0.5) {
+            if (Math.random() > 0.5 && this.isRandomHeight) {
                 break;
             }
         }
