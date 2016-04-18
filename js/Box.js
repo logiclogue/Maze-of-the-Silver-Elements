@@ -1,9 +1,9 @@
 import * as THREE from 'three'
+import LoadTexture from './LoadTexture'
 
 export default class Box extends THREE.Mesh
 {
-    static texturePath = 'res/box.gif';
-    static texture;
+    static texture = new LoadTexture('res/box.gif').texture;
 
 
     constructor(x, z, y) {

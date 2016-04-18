@@ -4,7 +4,6 @@ import Player from './Player'
 import CollisionWorld from './Collision/CollisionWorld'
 import CollisionGroup from './Collision/CollisionGroup'
 import Maze from './Generator/Maze'
-import TextureLoader from './TextureLoader'
 
 export default class Level
 {
@@ -19,9 +18,8 @@ export default class Level
 
 
     createWorld() {
-        let textureLoader = new TextureLoader();
         let boxGroup = new CollisionGroup();
-        
+
         this.player.addBoxCollision(boxGroup);
         this.collisionWorld.addGroup(boxGroup);
         this.collisionWorld.addGroup(this.player.collisionGroup);

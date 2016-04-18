@@ -1,9 +1,9 @@
 import * as THREE from 'three'
+import LoadTexture from './LoadTexture'
 
 export default class Floor extends THREE.Mesh
 {
-    static texturePath = 'res/floor.gif';
-    static texture;
+    static texture = new LoadTexture('res/floor.gif').texture;
 
     constructor(x, z) {
         let geometry = new THREE.PlaneGeometry(200, 200);
