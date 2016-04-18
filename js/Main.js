@@ -9,10 +9,12 @@ export default class Main
         this.renderer = new Renderer();
         this.animLoop = new AnimLoop();
         this.controls = new Controls();
-        this.level = new Level(1, this.controls);
+        this.currentLevel = 1;
 
         this.animLoop.drawMethod = this.draw.bind(this);
         this.animLoop.updateMethod = this.update.bind(this);
+
+        this.nextLevel();
 
         window.addEventListener('resize', this._onWindowResize.bind(this), false);
     }
@@ -24,6 +26,11 @@ export default class Main
 
     update() {
         this.level.update();
+    }
+
+    nextLevel() {
+        this.level = new Level(this.currentLevel, this.controls, this.nextLevel.bind(this));
+        this.currentLevel += 1;
     }
 
 

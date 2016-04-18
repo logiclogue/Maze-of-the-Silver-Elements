@@ -9,8 +9,6 @@ export default class Controls
 
 
     _keydown(e) {
-        console.log(e.keyCode);
-
         this.keysdown[e.keyCode] = true;
     }
 

@@ -7,10 +7,13 @@ export default class Box extends THREE.Mesh
 
 
     constructor(x, z, y) {
+        let tint = Math.floor(Math.random() * 100) + 56;
+        let colour = (tint << 16) + (tint << 8) + tint;
         let geometry = new THREE.BoxGeometry(200, 200, 200);
         let material = new THREE.MeshBasicMaterial({
             vertexColors: THREE.FaceColors,
-            map: Box.texture
+            map: Box.texture,
+            color: colour
         });
 
         super(geometry, material);
