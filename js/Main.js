@@ -9,7 +9,7 @@ export default class Main
         this.renderer = new Renderer();
         this.animLoop = new AnimLoop();
         this.controls = new Controls();
-        this.level = new Level(this.controls);
+        this.level = new Level(1, this.controls);
 
         this.animLoop.drawMethod = this.draw.bind(this);
         this.animLoop.updateMethod = this.update.bind(this);

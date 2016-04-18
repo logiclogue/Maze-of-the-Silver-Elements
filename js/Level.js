@@ -7,11 +7,15 @@ import Maze from './Generator/Maze'
 
 export default class Level
 {
-    constructor(controls) {
+    constructor(stage, controls) {
+        this.size = (stage * 2) + 1;
         this.scene = new Scene();
         this.player = new Player(controls);
         this.collisionWorld = new CollisionWorld();
-        this.maze = new Maze(10, this.scene);
+        this.maze = new Maze(this.size, this.scene);
+
+        this.player.initX = this.size;
+        this.player.initZ = this.size;
 
         this.createWorld();
     }

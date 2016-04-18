@@ -7,7 +7,7 @@ import DepthFirstSearch from './DepthFirstSearch'
 export default class Maze extends Generator
 {
     constructor(size, scene) {
-        super(10);
+        super(size);
 
         this.scene = scene;
         this.grid = [];
