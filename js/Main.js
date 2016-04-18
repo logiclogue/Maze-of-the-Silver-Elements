@@ -13,6 +13,8 @@ export default class Main
 
         this.animLoop.drawMethod = this.draw.bind(this);
         this.animLoop.updateMethod = this.update.bind(this);
+
+        window.addEventListener('resize', this._onWindowResize.bind(this), false);
     }
 
 
@@ -22,6 +24,12 @@ export default class Main
 
     update() {
         this.level.update();
+    }
+
+
+    _onWindowResize() {
+        this.level.player.resize();
+        this.renderer.resize();
     }
 }
 
