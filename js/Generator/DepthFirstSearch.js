@@ -5,8 +5,8 @@ export default class FirstDepthSearch
         this.stack = [];
         this.nodesVisited = [];
 
-        this.stack.push([1, 1]);
-        this.grid[1][1] = false;
+        this.stack.push([this.grid.length - 2, this.grid.length - 2]);
+        this.grid[this.grid.length - 2][this.grid.length - 2] = false;
 
         this._run();
     }
@@ -46,7 +46,7 @@ export default class FirstDepthSearch
             nodeCoordsToVisit = nodesToTest[Math.floor(Math.random() * nodesToTest.length)];
             nodeToVisit = this.grid[nodeCoordsToVisit[0]][nodeCoordsToVisit[1]];
         }
-        while (!nodeCoordsToVisit);
+        while (!nodeToVisit);
 
         this.grid[nodeCoordsToVisit[0]][nodeCoordsToVisit[1]] = false;
         this.grid[(nodeCoordsToVisit[0] + coords[0]) / 2][(nodeCoordsToVisit[1] + coords[1]) / 2] = false;
