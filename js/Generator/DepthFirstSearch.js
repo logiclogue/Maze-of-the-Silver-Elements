@@ -6,7 +6,7 @@ export default class FirstDepthSearch
         this.nodesVisited = [];
 
         this.stack.push([1, 1]);
-        this.nodesVisited.push([1, 1]);
+        this.grid[1][1] = false;
 
         this._run();
     }
@@ -22,14 +22,19 @@ export default class FirstDepthSearch
     }
 
     _findNextNode(coords) {
-        let nodeCurrect = this.grid[coords[0]][this.grid[coords[1]]];
+        let nodeCurrect = this.grid[coords[0]][coords[1]];
         let nodeToVisit;
-        let edgeToVisit;
+        let nodeCoordsToVisit;
+        let nodesToTest = [];
         let hasVisitedAll = true;
 
-        this._forEdgesAround(coords[0], coords[1], (x, y) => {
-            if (this.nodesVisited.indexOf(coords) === -1) {
-                hasVisitedAll = false;
+        this._forNodesAround(coords[0], coords[1], (x, y) => {
+            if (this._inWorld(x, y)) {
+                // Must be indented because it will throw an error if grid square is outside world
+                if (this.grid[x][y]) {
+                    hasVisitedAll = false;
+                    nodesToTest.push([x, y]);
+                }
             }
         });
 
@@ -37,10 +42,26 @@ export default class FirstDepthSearch
             return false;
         }
 
-        /*do {
-
+        do {
+            nodeCoordsToVisit = nodesToTest[Math.floor(Math.random() * nodesToTest.length)];
+            nodeToVisit = this.grid[nodeCoordsToVisit[0]][nodeCoordsToVisit[1]];
         }
-        while ();*/
+        while (!nodeCoordsToVisit);
+
+        this.grid[nodeCoordsToVisit[0]][nodeCoordsToVisit[1]] = false;
+        this.grid[(nodeCoordsToVisit[0] + coords[0]) / 2][(nodeCoordsToVisit[1] + coords[1]) / 2] = false;
+        this.stack.push(nodeCoordsToVisit);
+
+        return true;
+    }
+
+    _inWorld(x, y) {
+        let tooLowX = x < 0;
+        let tooLowY = y < 0;
+        let tooHighX = x > this.grid.length - 1;
+        let tooHighY = y > this.grid.length - 1;
+
+        return !tooLowX && !tooLowY && !tooHighX && !tooHighY;
     }
 
     _forNodesAround(x, y, callback) {
@@ -60,48 +81,4 @@ export default class FirstDepthSearch
             callback(x1, y1);
         }
     }
-
-
-    /*_run() {
-        do {
-            if (!this._findNextNode(this.stack[this.stack.length - 1])) {
-                this.stack[this.stack.length - 1].edges.forEach((edge, index) => {
-                    if (edge.endNode === this.stack[this.stack.length - 2].theName) {
-                        this.stack[this.stack.length - 1].edges.splice(index, 1);
-                    }
-                });
-
-                this.stack.splice(this.stack.length - 1, 1);
-            }
-        }
-        while (this.stack.length !== 1);
-    }
-
-    _findNextNode(node) {
-        let nodeToTest;
-        let edgeToVisit;
-        let hasVisitedAll = true;
-
-        node.edges.forEach((edgeTesting) => {
-            if (this.nodesVisited.indexOf(this.graph.nodes[edgeTesting.endNode]) === -1) {
-                hasVisitedAll = false;
-            }
-        });
-
-        if (hasVisitedAll) {
-            return false;
-        }
-
-        do {
-            edgeToVisit = node.edges[Math.floor(Math.random() * node.edges.length)];
-            nodeToTest = this.graph.nodes[edgeToVisit.endNode];
-        }
-        while (this.nodesVisited.indexOf(nodeToTest) !== -1);
-
-        node.edges.splice(node.edges.indexOf(edgeToVisit), 1);
-        this.stack.push(nodeToTest);
-        this.nodesVisited.push(nodeToTest);
-
-        return true;
-    }*/
 }

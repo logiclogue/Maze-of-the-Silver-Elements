@@ -11,42 +11,30 @@ export default class Maze extends Generator
         this.scene = scene;
         this.grid = [];
 
-        this.generateGraph();
+        this.generateGrid();
 
-        this.search = new DepthFirstSearch(this.graph);
+        this.search = new DepthFirstSearch(this.grid);
     }
 
 
-    generateGraph() {
-        for (let x = 0; x < this.size; x += 1) {
-            for (let y = 0; y < this.size; y += 1) {
-                let node = this.graph.addNode(x + ',' + y);
+    generateGrid() {
+        for (let x = 0, maxX = (this.size * 2) + 1; x < maxX; x += 1) {
+            this.grid[x] = [];
 
-                this._forAllAround(x, y, (x1, y1) => {
-                    let isInWorld = x1 >= 0 && y1 >= 0 && x1 < this.size && y1 < this.size;
-
-                    if (isInWorld) {
-                        node.addEdge(x + ',' + y, x1 + ',' + y1, 1);
-                    }
-                });
+            for (let y = 0, maxY = (this.size * 2) + 1; y < maxY; y += 1) {
+                this.grid[x][y] = true;
             }
         }
-
-        this.graph.addStartNode('0,0');
     }
 
     draw(texture, floorTexture, boxGroup) {
-        for (let x = 0; x < this.size; x += 1) {
-            this.grid[x] = [];
-
-            for (let y = 0; y < this.size; y += 1) {
-                this.grid[x][y] = false;
-                let node = this.graph.nodes[x + ',' + y];
-
-                this.scene.add(new Floor(x, y, floorTexture));
-
-                if ((x % 2) && (y % 2)) {
-                    this.grid[x][y] = new Box(x, y, texture, boxGroup);
+        for (let x = 0, maxX = this.grid.length; x < maxX; x += 1) {
+            for (let y = 0, maxY = this.grid[x].length; y < maxY; y += 1) {
+                if (this.grid[x][y]) {
+                    this.scene.add(new Box(x, y, texture, boxGroup));
+                }
+                else {
+                    this.scene.add(new Floor(x, y, floorTexture));
                 }
             }
         }
