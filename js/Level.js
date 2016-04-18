@@ -4,6 +4,7 @@ import Player from './Player'
 import CollisionWorld from './Collision/CollisionWorld'
 import CollisionGroup from './Collision/CollisionGroup'
 import Maze from './Generator/Maze'
+import SilverElement from './SilverElement'
 
 export default class Level
 {
@@ -13,6 +14,9 @@ export default class Level
         this.player = new Player(controls);
         this.collisionWorld = new CollisionWorld();
         this.maze = new Maze(this.size, this.scene);
+        this.silverElement = new SilverElement(1, 1, this.player);
+
+        this.scene.add(this.silverElement);
 
         this.player.initX = this.size;
         this.player.initZ = this.size;
@@ -33,6 +37,7 @@ export default class Level
 
     update() {
         this.player.controller();
+        this.silverElement.update();
         this.collisionWorld.test();
     }
 }
