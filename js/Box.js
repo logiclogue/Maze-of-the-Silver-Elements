@@ -1,28 +1,28 @@
 import * as THREE from 'three'
-import CollisionBox from './Collision/CollisionBox'
 
 export default class Box extends THREE.Mesh
 {
-    constructor(x, z, texture, collisionGroup) {
+    static texturePath = 'res/box.gif';
+    static texture;
+
+
+    constructor(x, z, y) {
         let geometry = new THREE.BoxGeometry(200, 200, 200);
         let material = new THREE.MeshBasicMaterial({
             vertexColors: THREE.FaceColors,
-            map: texture
+            map: Box.texture
         });
 
         super(geometry, material);
 
-        this.collisionBox = new CollisionBox(0, 0, 200, 200);
-        collisionGroup.addBox(this.collisionBox);
-
         this.posX = x;
         this.posZ = z;
+        this.posY = y;
     }
 
 
     set posX(x) {
         this.position.x = x * 200 || 0;
-        this.collisionBox.x = this.position.x;
     }
 
     get posX() {
@@ -31,10 +31,13 @@ export default class Box extends THREE.Mesh
 
     set posZ(z) {
         this.position.z = z * 200 || 0;
-        this.collisionBox.y = this.position.z;
     }
 
     get posZ() {
         return this.position.z;
+    }
+
+    set posY(y) {
+        this.position.y = y * 200 || 0;
     }
 }

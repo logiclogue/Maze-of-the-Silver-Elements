@@ -1,6 +1,7 @@
 import Generator from './Generator'
-import Box from '../Box'
+import Wall from '../Wall'
 import Floor from '../Floor'
+import Ceiling from '../Ceiling'
 import DepthFirstSearch from './DepthFirstSearch'
 
 export default class Maze extends Generator
@@ -27,15 +28,18 @@ export default class Maze extends Generator
         }
     }
 
-    draw(texture, floorTexture, boxGroup) {
+    draw(boxTexture, floorTexture, boxGroup) {
         for (let x = 0, maxX = this.grid.length; x < maxX; x += 1) {
             for (let y = 0, maxY = this.grid[x].length; y < maxY; y += 1) {
                 if (this.grid[x][y]) {
-                    this.scene.add(new Box(x, y, texture, boxGroup));
+                    let wall = new Wall(x, y, boxGroup, boxTexture);
+                    wall.addToScene(this.scene);
                 }
                 else {
                     this.scene.add(new Floor(x, y, floorTexture));
                 }
+
+                this.scene.add(new Ceiling(x, y, floorTexture));
             }
         }
     }

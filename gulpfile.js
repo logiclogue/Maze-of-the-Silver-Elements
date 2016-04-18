@@ -18,6 +18,7 @@ gulp.task('javascript', function () {
     return browserify(paths.javascript[0])
         .transform('babelify', {
             presets: ['es2015'],
+            plugins: ['transform-class-properties'],
             sourceMaps: false
         })
         .bundle()

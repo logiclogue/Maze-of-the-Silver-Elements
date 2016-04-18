@@ -1,10 +1,10 @@
+import * as THREE from 'three'
 import Scene from './Scene'
 import Player from './Player'
-import Box from './Box'
-import Floor from './Floor'
 import CollisionWorld from './Collision/CollisionWorld'
 import CollisionGroup from './Collision/CollisionGroup'
 import Maze from './Generator/Maze'
+import TextureLoader from './TextureLoader'
 
 export default class Level
 {
@@ -20,10 +20,11 @@ export default class Level
 
     createWorld() {
         let textureLoader = new THREE.TextureLoader();
-        let texture = textureLoader.load('res/box.gif');
+        let txtLoader = new TextureLoader();
         let floorTexture = textureLoader.load('res/floor.gif')
-        texture.minFilter = floorTexture.minFilter = THREE.NearestFilter;
-        texture.magFilter = floorTexture.magFilter = THREE.NearestFilter;
+        let texture;
+        floorTexture.minFilter = THREE.NearestFilter;
+        floorTexture.magFilter = THREE.NearestFilter;
 
         let boxGroup = new CollisionGroup();
         this.player.addBoxCollision(boxGroup);

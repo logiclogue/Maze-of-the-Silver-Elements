@@ -5,7 +5,7 @@ import CollisionBox from './Collision/CollisionBox'
 export default class Player extends THREE.PerspectiveCamera
 {
     constructor(controls) {
-        super(70, window.innerWidth / window.innerHeight, 1, 1000);
+        super(70, window.innerWidth / window.innerHeight, 1, 2000);
 
         this.controls = controls;
         this.collisionGroup = new CollisionGroup();

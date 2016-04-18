@@ -13,7 +13,7 @@ export default class Scene extends THREE.Scene
     constructor() {
         super();
 
-        this.fog = new THREE.FogExp2(0x000000, 0.0025);
+        this.fog = new THREE.FogExp2(0x000000, 0.001);
 
         window.addEventListener('resize', this._onWindowResize.bind(this), false);
     }
