@@ -15,7 +15,6 @@ export default class SilverElement extends THREE.Mesh
         });
         let x = (Math.random() > 0.5 ? 1 : size - 1);
         let z = (Math.random() > 0.5 ? 1 : size - 1);
-        console.log(x, z);
 
         super(geometry, material);
 

@@ -49,18 +49,18 @@ export default class Player extends THREE.PerspectiveCamera
 
 
     controller() {
-        if (this.controls.keysdown[38]) { // forward
+        if (this.controls.keysdown[38] || this.controls.keysdown[87]) { // forward
             this.posX -= 5 * Math.sin(this.rotation.y);
             this.posZ -= 5 * Math.cos(this.rotation.y);
         }
-        if (this.controls.keysdown[40]) { // backward
+        if (this.controls.keysdown[40] || this.controls.keysdown[83]) { // backward
             this.posX += 5 * Math.sin(this.rotation.y);
             this.posZ += 5 * Math.cos(this.rotation.y);;
         }
-        if (this.controls.keysdown[39]) { // right
+        if (this.controls.keysdown[39] || this.controls.keysdown[68]) { // right
             this.rotation.y -= 0.05;
         }
-        if (this.controls.keysdown[37]) { // left
+        if (this.controls.keysdown[37] || this.controls.keysdown[65]) { // left
             this.rotation.y += 0.05;
         }
     }
