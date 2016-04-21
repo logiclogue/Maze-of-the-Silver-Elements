@@ -16,6 +16,8 @@ export default class Player extends THREE.PerspectiveCamera
         this.pZ;
         this.posX = 200;
         this.posZ = 200;
+        this.speed = 7.5;
+        this.angularSpeed = 0.06;
     }
 
 
@@ -50,18 +52,18 @@ export default class Player extends THREE.PerspectiveCamera
 
     controller() {
         if (this.controls.keysdown[38] || this.controls.keysdown[87]) { // forward
-            this.posX -= 5 * Math.sin(this.rotation.y);
-            this.posZ -= 5 * Math.cos(this.rotation.y);
+            this.posX -= this.speed * Math.sin(this.rotation.y);
+            this.posZ -= this.speed * Math.cos(this.rotation.y);
         }
         if (this.controls.keysdown[40] || this.controls.keysdown[83]) { // backward
-            this.posX += 5 * Math.sin(this.rotation.y);
-            this.posZ += 5 * Math.cos(this.rotation.y);;
+            this.posX += this.speed * Math.sin(this.rotation.y);
+            this.posZ += this.speed * Math.cos(this.rotation.y);;
         }
         if (this.controls.keysdown[39] || this.controls.keysdown[68]) { // right
-            this.rotation.y -= 0.05;
+            this.rotation.y -= this.angularSpeed;
         }
         if (this.controls.keysdown[37] || this.controls.keysdown[65]) { // left
-            this.rotation.y += 0.05;
+            this.rotation.y += this.angularSpeed;
         }
     }
 
