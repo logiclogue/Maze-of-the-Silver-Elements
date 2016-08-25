@@ -27,5 +27,8 @@
   },
   "browserify-shim": {
     "three": "global:THREE"
+  },
+  "dependencies": {
+    "scrixel-gameloop": "^1.0.0"
   }
 }

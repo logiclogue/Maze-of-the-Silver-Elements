@@ -1,12 +1,21 @@
+import * as ScrixelLoop from 'scrixel-gameloop';
+
+
+console.log(ScrixelLoop);
+
 export default class AnimLoop
 {
     constructor() {
+        this.loopFunctions = new ScrixelLoop.LoopFunctions();
+        this.looper = new ScrixelLoop.Looper(this.loopFunctions);
+
         this.now;
         this.last;
         this.dt;
         this.step = 1 / 60;
 
-        this._loop();
+        //this._loop();
+        this.looper.start();
     }
 
 
@@ -31,7 +40,11 @@ export default class AnimLoop
         return Date.now();
     }
 
-    drawMethod() {}
+    set drawMethod(method) {
+        this.loopFunctions.draw = method;
+    }
 
-    updateMethod() {}
+    set updateMethod(method) {
+        this.loopFunctions.update = method;
+    }
 }
